@@ -1,3 +1,26 @@
+/**
+ * 话说你动作可真快啊……第一天回来第二天就把任务二也搞定了……
+ * 而且这么快的速度，完成度还这么高，比我当年学的时候不知道高到哪里去了……
+ * 当然，问题还是有一些，初学怎么可能不犯错呢，改了就好。
+ * 那么我就来说说问题吧。
+ * 对了，其实上次任务1有些问题，因为我粗心没发现，今天再看的时候才发现，真是抱歉呐……
+ * 那我就再给你推荐一个小工具，就是这个：https://validator.w3.org/
+ * W3C（所有 Web 技术标准的制定者，每个前端人心中的圣地）开发的一款 HTML 检查器。
+ * 我要说的问题大部分它都能指出来，你自己写完 HTML 之后也可以用这个检查下。
+ * 它没指出来的还有两个问题，第一个在 HTML 的第 64 行，
+ * 你给`ul`加上了一个`type="square"`的属性，这个最好别在这里指定，用 CSS 来做吧。
+ * 还有表单里的各种`&nbsp;`也是这个问题。
+ * 这个又涉及到一个前端技术里一个很重要的理念，就是“内容（HTML）/表现（CSS）/行为（JavaScript）相分离”。
+ * 说白了就是尽量让事情分配给该做这件事的人去做。
+ * HTML 只负责呈现页面的内容，让页面变好看不是他的工作，那就别让他去做。
+ * CSS 是做这个的，那就让他去做。
+ * 我可能说得不太清楚，中文博客好像也没有能把这个事情说得特别清楚的。
+ * 不过这篇文章讲得还不错：http://webdesign.about.com/od/intermediatetutorials/a/aa010707.htm
+ * 我觉得把要说的问题几乎都说明白了。（P.S. 学好英语是多么重要啊……）
+ * 然后还有一个是在 HTML 的第52行。`<h3>`用来表达这种内容似乎在语义化上不太合适，用`<small>`貌似要好些。
+ * 对了，还有，一个 HTML 页面一般只有一个 `<h1>`。
+ * 虽然显示没有问题，但是不太符合语义化，这点还请注意。
+ */
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +28,13 @@
 
 body {
     background-color: gray;
+    /**
+     * 在 CSS 里面，颜色最好用色值（`#ff0000`）而不要用色名（`red`）表示。
+     * 因为各个浏览器对各种色名的兼容性是不一样的，你写出的色名并不一定在所有浏览器中都是兼容的。
+     * 即便兼容，显示出来的颜色也不一定是同一个。
+     * 而色值是所有浏览器都兼容并且一致的。
+     * 再说了，你们视觉给我们前端出视觉稿的时候，给的也都是色值嘛，对吧 :)
+     */
     min-width: 1024px;
     font-family: Helvetica, Arial, Agency FB, Calibri, Hero, BatangChe;
 }
@@ -34,6 +64,20 @@ footer {
 
 #nav li a {
     font-family: Agency FB;
+    /**
+     * 你这里用到了一个名叫“Agency FB”的字体，另外在第 121 行你还用了个“BatangChe”。
+     * 的确，这些字体放在这里很合适，
+     * 但是你要知道，除了你用的 Mac OS X（现在叫 macOS ……）和我用的 Windows 以外，
+     * 还有一种叫 Linux 的系统，而这种系统还有无数的发行版。
+     * 而除了这些以外，你如果以后要做移动端适配的话，还将面临无数的手机系统……
+     * 而这些系统未必有你指定的这个字体，所以它们会使用默认字体渲染这些文字。
+     * 为了保证设计师的心血不白费，相应的所谓“Web 安全字体”的标准应运而出。
+     * 所谓“安全字体”，就是根据标准或经验，系统一定会内置的字体。
+     * 这里有关于英文安全字体的一些说明：http://www.coffeecup.com/help/articles/what-is-a-web-safe-font/
+     * 这里有关于中文安全字体的一些说明：https://ruby-china.org/topics/14005
+     * 当然如果你对这些字体很执念的话，你可以考虑用 `@font-face`。
+     * 这里有详细的说明：http://www.adobe.com/cn/devnet/html5/articles/web-typography-and-css-font-face.html
+     */
     font-size: 20px;
 }
 
@@ -93,6 +137,11 @@ time {
 }
 
 .long_para {
+    /**
+     * 这里对于`class`，我们的代码风格约定的是用短横线（`long-para`）来作为单词的分隔符。
+     * 代码规范（我之前给你放过链接）还是要看的，这是前端开发者约定俗成的命名规范。
+     * 好好遵守的话，可以让大家都很容易地读懂你的代码。
+     */
     font-family: Calibri;
     font-size: 1em;
     margin-top: 0.25em;
@@ -122,6 +171,7 @@ time {
 h4 {
     font-family: Arial;
     font-size: 1em;
+    /* 这一行什么意思？画蛇添足了？ */
     text-align: center;
     padding: 10px 0;
 }
@@ -159,6 +209,7 @@ table th {
     color: white;
     font-family: Arial;
     font-style: bold;
+    /* 这里不应该是 `font-style`，没有这个属性，看你的意思是想用 `font-weight` ？ */
 }
 
 #table_footer {
@@ -172,11 +223,30 @@ table th {
 
 #sidebar_block {
     border-left: 6px solid gray;
+    /**
+     * 这里没必要新套一个 `<div>` 在外面啊，直接一个`<h2>`多好啊
+     * 又够语义化，还节省一个不必要的标签嵌套，岂不美哉？
+     * 像这样：
+     * <h2 class="my"">Log up (this is a side bar)</h2>
+     * <style>
+     * .my {
+     *      text-indent: 1em;
+     *      font-family: Calibri;
+     *      font-weight: normal;
+     *      font-size: 32px;
+     *      border-left: 6px solid gray;
+     *   }
+     * </style>
+     */
 }
 
 #sidebar_block p {
     font-family: Calibri;
     font-size: 2em;
+    /** 
+     *`font-size` 请统一用 `px`作为单位，不要用`em`。
+     * 要不然在不同的浏览器上（尤其是在你要准确还原一个视觉稿的时候）会出现很多意想不到的问题。
+     */
     text-indent: 1em;
 }
 
